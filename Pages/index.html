@@ -1,28 +1,24 @@
-// app/page.tsx
-"use client";
+// pages/index.js
+import React, { useState, useEffect } from 'react';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
-import React, { useState, useEffect } from "react";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-
-export default function HomePage() {
-  // Loading state
+export default function Home() {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [loading, setLoading] = useState(true);
 
   // Simulate loading progress
   useEffect(() => {
     const interval = setInterval(() => {
-      setLoadingProgress((prev) => {
+      setLoadingProgress(prev => {
         if (prev >= 100) {
           clearInterval(interval);
-          // Slight delay before showing main content
+          // Slight delay before showing content
           setTimeout(() => setLoading(false), 300);
           return 100;
         }
         return prev + 5;
       });
     }, 100);
-
     return () => clearInterval(interval);
   }, []);
 
@@ -36,8 +32,6 @@ export default function HomePage() {
           ></div>
         </div>
         <p className="loading-text">Loading... {loadingProgress}%</p>
-
-        {/* Local styles for loading screen */}
         <style jsx>{`
           .loading-container {
             display: flex;
@@ -62,7 +56,7 @@ export default function HomePage() {
             transition: width 0.1s ease;
           }
           .loading-text {
-            font-family: "MS Sans Serif", sans-serif;
+            font-family: 'MS Sans Serif', sans-serif;
             font-size: 14px;
             color: #000;
           }
@@ -71,39 +65,30 @@ export default function HomePage() {
     );
   }
 
-  // Main content (four full-screen sections)
+  // Render main content after loading completes
   return (
     <div className="container">
-      {/* Wallet connect button (top-right corner) */}
+      {/* Wallet connect button in the top-right corner */}
       <div className="wallet-button">
         <WalletMultiButton />
       </div>
 
-      {/* Section 1 */}
+      {/* Four full-screen sections */}
       <section className="section" id="page1">
         <img src="/logo.png" alt="Logo" className="logo" />
       </section>
-
-      {/* Section 2 */}
       <section className="section" id="page2">
         <h2>Page 2</h2>
       </section>
-
-      {/* Section 3 */}
       <section className="section" id="page3">
         <h2>Page 3</h2>
       </section>
-
-      {/* Section 4 */}
       <section className="section" id="page4">
         <h2>Page 4</h2>
       </section>
 
-      {/* Local styles for the main page */}
       <style jsx>{`
-        /* Prevent horizontal scrollbar */
-        html,
-        body {
+        html, body {
           margin: 0;
           padding: 0;
           overflow: hidden;
@@ -118,25 +103,16 @@ export default function HomePage() {
           scroll-snap-align: start;
           height: 100vh;
           width: 100%;
-          position: relative;
           display: flex;
           justify-content: center;
           align-items: center;
           font-family: sans-serif;
         }
-        /* Background colors for demonstration */
-        #page1 {
-          background-color: #f5f5f5;
-        }
-        #page2 {
-          background-color: #e0e0e0;
-        }
-        #page3 {
-          background-color: #cccccc;
-        }
-        #page4 {
-          background-color: #b3b3b3;
-        }
+        /* Different background colors for each section */
+        #page1 { background-color: #f5f5f5; }
+        #page2 { background-color: #e0e0e0; }
+        #page3 { background-color: #cccccc; }
+        #page4 { background-color: #b3b3b3; }
         .logo {
           width: 200px;
           height: auto;
